@@ -11,16 +11,16 @@ int main(){
   umask(0000);
 
 
-  //Opening the files and check to see if we get valid file descriptors. If not, clean up and exit.
+  //Opening the files and check to see if we get valid file descriptors. If not, write to stderr, clean up, and exit.
   int foo_fd = open("foo", O_RDONLY);
   if(foo_fd==-1){
-    char msg[] = "[ ERROR ] Unable to open file foo for reading.";
+    char msg[] = "[ ERROR ] Unable to open file foo for reading.\n";
     write(2, msg, sizeof(msg));
     return -1;
   }
   int clone_fd = open("clone2", O_WRONLY | O_CREAT, 0770);
   if(clone_fd==-1){
-    char msg[] = "[ ERROR ] Unable to open file clone2 for writing.";
+    char msg[] = "[ ERROR ] Unable to open file clone2 for writing.\n";
     write(2, msg, sizeof(msg));
     close(foo_fd);
     return -1;

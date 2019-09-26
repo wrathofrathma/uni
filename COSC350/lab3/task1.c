@@ -11,10 +11,10 @@ This uses redirection of the terminal to standard input.
 int main(int argc, char **argv){
   //Set our mask so we can do permissions properly.
   umask(0000);
-  //First let's open our output file and create it.
+  //First let's open our output file and create it. If there are errors opening, write to stderr and exit.
   int clone_fd = open("clone", O_CREAT | O_WRONLY, 0666);
   if(clone_fd==-1){
-    char msg[] = "[ ERROR ] Unable to open clone file for writing.";
+    char msg[] = "[ ERROR ] Unable to open clone file for writing.\n";
     write(2, msg, sizeof(msg));
     return -1;
   }

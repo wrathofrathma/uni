@@ -8,7 +8,7 @@
 int main(){
   //set our umask
   umask(0000);
-  //Open files & check for errors(-1 as a file descriptor)
+  //Open files & check for errors(-1 as a file descriptor). If errors exist, write them to stderr.
   int foo_fd = open("foo", O_RDONLY);
   if(foo_fd==-1){
     char msg[] = "[ ERROR ] Unable to open file \"foo\"\n";
@@ -20,6 +20,7 @@ int main(){
   if(clone_fd==-1){
     char msg[] = "[ ERROR ] Unable to open file \"clone1\"\n";
     write(2, msg, sizeof(msg));
+    close(foo_fd);
     return -1;
   }
 
