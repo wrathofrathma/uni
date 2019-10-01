@@ -1,3 +1,16 @@
+/* Write a C main function that takes one command-line argument, the name of an input file. The input file contains exactly one integer spread out over a single line of up to 80 characters. For example, the integer 3579 is embedded in the line az3mqrm5t?7!z*&gqmzt9v.
+ * Your program uses system calls to do the following:
+ * a. Open and read the input file, accumulating the discovered digit characters into a character array(string).
+ * b. convert the string to an integer. Do not use the atoi function
+ * c. add 10 to the integer
+ * d. convert the sum back to a string (using the function convIntToStr
+ * e. Make a system call to write the string to standard output
+int convIntToStr(char * str, int x)
+{
+	sprintf(str, "%d", x);
+	return (strlen(str));
+}
+*/
 #include <stdio.h>
 //#include <stdlib.h>
 //#include <sys/stat.h>
