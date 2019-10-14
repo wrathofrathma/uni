@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 // Returns the length of a string in bytes.
 unsigned int strlen(const char *s){
   int i = 0;
@@ -63,15 +64,49 @@ int main(){
   //Generate directory path.
   int dsize = strappend(home, "Dir1", buffer);
   //Create directory.
-  int rval = mkdir(buffer,0555);
+  int rval = mkdir(buffer,0777);
   zerostr(buffer);
   //Create second directory.
   dsize = strappend(home, "Dir2", buffer);
   //Create directory.
-  rval = mkdir(buffer,0555);
+  rval = mkdir(buffer,0777);
   //Create third directory.
-  dsize = strappend(buffer,"/Dir21/", buffer);
-  rval = mkdir(buffer,0555);
+  dsize = strappend(buffer,"/Dir12/", buffer);
+  rval = mkdir(buffer,0777);
 
+  // Open the files.
+  int ifd = open("hello", O_RDONLY);
+  if(ifd==-1){
+    printf("[ ERROR ] A problem occured while opening the input file hello.\n");
+    return -1;
+  }
+  zerostr(buffer);
+  strappend(home, "Dir2/Dir12/hello", buffer);
+  //Create output file as executable, read, write for all.
+  int ofd = open(buffer, O_CREAT | O_WRONLY, 0777);
+  if(ofd==-1){
+    printf("[ ERROR ] A problem occured while opening the output file hello.\n");
+    close(ifd);
+    return -1;
+  }
+  zerostr(buffer);
+  //Copy the file contents.
+  int n_read = 0;
+  do {
+    n_read = read(ifd, buffer, 256);
+    write(ofd, buffer, n_read);
+  } while(n_read>0);
+  //Close both files.
+  close(ifd);
+  close(ofd);
+
+  zerostr(buffer);
+  //Create symbolic links.
+  strappend(home, "Dir2/Dir12/",buffer);
+  symlink(buffer, "toDir12");
+
+  zerostr(buffer);
+  strappend(home, "Dir2/Dir12/hello", buffer);
+  symlink(buffer, "toHello");
   return 0;
 }
