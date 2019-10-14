@@ -6,3 +6,12 @@
  * * By using system calls, make a symbolic link named toDir12 to directory Dir12
  * * By using system calls, make a symbolic link named toHello to executable file ~/Dir12/hello
  */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+  chdir("~/");
+  
+  return 0;
+}

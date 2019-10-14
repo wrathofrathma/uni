@@ -64,7 +64,7 @@ int main(int argc, char **argv){
 		printf("An error occurred when opening the file for reading\n");
 		return -1;
 	}
-	
+
 	char c;
 	char buffer[80];
 	int index=0;
@@ -76,11 +76,12 @@ int main(int argc, char **argv){
 			index++;
 		}
 	}
+	buffer[index]='\0';
 	printf("Found integer string: %s\n", buffer);
-	
+
 	//Convert string to integer.
 	int num=convStrToInt(buffer);
-	printf("String as an integer: %d\n", num);	
+	printf("String as an integer: %d\n", num);
 	//Add 10
 	num+=10;
 	printf("Number+10: %d\n", num);
@@ -91,5 +92,6 @@ int main(int argc, char **argv){
 	printf("Writing to stdout using system call\n");
 	write(1, buf2, strlen(buf2));
 	close(fd);
+	printf("\n");
 	return 0;
 }
