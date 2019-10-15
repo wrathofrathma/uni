@@ -1,7 +1,7 @@
 /* Write a simple program called hello.c and compile it and create executable file named hello.
  * Write a C program for sequence of following task.
  * * By using system cal build following directory structure
- * * * home/separk/Dir1 home/separk/Dir2/Dir21
+ * * * home/separk/Dir1 home/separk/Dir2/Dir12
  * * By using system calls, copy hello file under ~/Dir2/Dir12/
  * * By using system calls, make a symbolic link named toDir12 to directory Dir12
  * * By using system calls, make a symbolic link named toHello to executable file ~/Dir12/hello
@@ -54,9 +54,9 @@ int main(){
   printf("Username: %s\nString Length: %d\n", username, user_size);
   //Creating the base home directory string.
   // "/home/" is 6 chars
-  char home[strlen(username)+7];
-  int home_size = strappend("/home/", username, home);
-  home_size = strappend(home, "/", home);
+  char home[] = "/mnt/linuxlab/home/carausa1/";
+  int home_size = strlen(home);//strappend("/home/", username, home);
+  //home_size = strappend(home, "/", home);
   printf("Home Directory: %s\nString Length: %d\n", home, home_size);
 
   //Iteratively create the directories.
