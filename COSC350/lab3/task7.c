@@ -40,7 +40,8 @@ int main(int argc, char **argv){
     return -1;
   }
   int sum=0;
-  for(int i=1; i<argc; i++){
+  int i=1;
+  for(i=1; i<argc; i++){
     sum+=_atoi(argv[i]);
   }
   printf("Sum of input numbers: %d\n", sum);

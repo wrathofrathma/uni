@@ -10,9 +10,9 @@
 
 
 // I didn't see the point in using two file descriptors since they share a single seek offset in the file table.
-int palind(int fd1){
+int palind(int fd1, int fd2){
   //Get our two offsets. Using -2 from SEEK_END of file because EOF is at -1 I believe.
-  int first=0, last=lseek(fd1, -2, SEEK_END);
+  int first=0, last=lseek(fd2, -2, SEEK_END);
   //Our buffers.
   char b1, b2;
   //We can loop until we hit the mid point(first==last)
@@ -25,8 +25,8 @@ int palind(int fd1){
       return 0;
     }
     //Set seek to last offset and read into a buffer. Check for errors.
-    lseek(fd1, last, SEEK_SET);
-    if(read(fd1, &b2, 1)!=1){
+    lseek(fd2, last, SEEK_SET);
+    if(read(fd2, &b2, 1)!=1){
       printf("[ ERROR ] Encountered an error when reading\n");
       return 0;
     }
@@ -55,7 +55,7 @@ int main(int argc, char **argv){
   //File is opened, now let's duplicate the file descriptor.
   int fd2 = dup(fd1);
 
-  printf("[ INFO ] Checking if %s is a palindrome...%s\n", argv[1], palind(fd1) ? "true" : "false");
+  printf("[ INFO ] Checking if %s is a palindrome...%s\n", argv[1], palind(fd1, fd2) ? "true" : "false");
 
   close(fd1);
   close(fd2);
