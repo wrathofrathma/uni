@@ -20,5 +20,5 @@ int main(int argc, char **argv)
     printf("%s pid: %d\n", message, pid);
     sleep(Tc);
   }
-  exit(0);
+  exit(37);
 }
