@@ -54,7 +54,7 @@ int main(int argc, char **argv)
       puts(message);
       sleep(stime);
     }
-    if(pid==0){
+    if(pid!=0){
       printf("Waiting for child to terminate\n");
       waitpid(0);
       printf("Child termated\n");
