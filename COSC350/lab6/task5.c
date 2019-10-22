@@ -8,3 +8,15 @@ Note)
   - Do not use vfork(), sleep(), wait() or waitpid() for synchronization
   - Check all possible errors for system calls.
   */
+
+  #include <sys/types.h>
+  #include <unistd.h>
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <fcntl.h>
+
+  int main(int argc, char **argv){
+
+
+    return 0;
+  }
