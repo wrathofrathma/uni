@@ -7,3 +7,29 @@
  * F. Print your modified ctrlc2.c to hand in.
  * G. While we're at it, take a look at what is printed by kill -l. It's an easy way to get a list of all the signal numbers and names.
  */
+
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+
+void ouch(int sig)
+{
+  printf("OUCH - I got a signal %d\n", sig);
+}
+
+int main()
+{
+  struct sigaction act;
+
+  act.sa_handler = ouch;
+  sigemptyset(&act.sa_mask);
+  act.sa_flags=SA_RESETHAND;
+
+  sigaction(SIGINT, &act,0);
+
+  while(1){
+    printf("Hello world!\n");
+    sleep(1);
+  }
+}
+
