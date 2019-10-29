@@ -1,3 +1,11 @@
+/* Wait for a thread for concurrent calculations 
+ * Thread #1: Get test scores from a keyboard up to 20 and save into the array.
+ * Thread #2: Calculate an average score and Medium value and display.
+ * Thread #3: get hte minimum and the maximum score and display
+ * Thread #4: Clear buffer and set to 0 and display after thread #2, thread #3 finishes its job.
+ * Thread #2 and #3 must wait for thread #1 to finish its job. Once thread #1 finishes its job, thread #2 and thread #3 works concurrently. Thread#4 must wait for thread #2 and Thread #3 finishes its job.
+ * */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
