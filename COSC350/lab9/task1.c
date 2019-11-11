@@ -17,3 +17,33 @@
  *  d. Modify the read so its third argument is the exact size of the buffer (rather than the large BUFSIZ)
  */
 
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+int READ_END=0;
+int WRITE_END=1;
+
+int main()
+{
+  int data_processed;
+  int file_pipes[2];
+  const char some_data[] = "123";
+
+  char *buffer = malloc(sizeof(char)*strlen(some_data));
+  strcpy(buffer,some_data);
+  printf("String after strcpy: %s\n", buffer);
+  memset(buffer, '\0', sizeof(buffer));
+
+  if(pipe(file_pipes)==0){
+    data_processed = write(file_pipes[WRITE_END], some_data, strlen(some_data));
+    printf("Wrote %d bytes\n", data_processed);
+    data_processed = read(file_pipes[READ_END], buffer, sizeof(buffer));
+    printf("Read %d bytes: %s\n", data_processed, buffer);
+    free(buffer);
+    exit(1);
+  }
+  free(buffer);
+  exit(1);
+}
